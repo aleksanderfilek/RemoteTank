@@ -126,6 +126,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="nrf24.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="nrf24.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="pwm.c">
       <SubType>compile</SubType>
     </Compile>

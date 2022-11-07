@@ -10,6 +10,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include "uart.h"
+#include <avr/interrupt.h>
 
 int main(void)
 {

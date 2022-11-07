@@ -9,6 +9,8 @@
 #ifndef TWI_H_
 #define TWI_H_
 
+#include "config.h"
+
 #define TWI_TIMEOUT 1600
 
 #define TWI_START 0x08

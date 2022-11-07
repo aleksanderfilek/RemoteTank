@@ -6,6 +6,7 @@
  */ 
 
 #include "twi.h"
+#include <avr/interrupt.h>
 
 volatile uint8_t status = TWI_NONE;
 

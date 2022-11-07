@@ -9,6 +9,8 @@
 #ifndef UART_H_
 #define UART_H_
 
+#include "config.h"
+
 #define RXBUFFERSIZE 128
 
 void UartInit(uint32_t baud, uint8_t highSpeed);
