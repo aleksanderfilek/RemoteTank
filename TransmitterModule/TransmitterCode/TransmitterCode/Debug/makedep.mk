@@ -6,7 +6,7 @@ main.c
 
 nrf24.c
 
-pwm.c
+motor.c
 
 spi.c
 

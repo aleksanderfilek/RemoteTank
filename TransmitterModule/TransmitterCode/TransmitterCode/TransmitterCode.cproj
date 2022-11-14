@@ -132,10 +132,10 @@
     <Compile Include="nrf24.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="pwm.c">
+    <Compile Include="motor.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="pwm.h">
+    <Compile Include="motor.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="spi.c">
