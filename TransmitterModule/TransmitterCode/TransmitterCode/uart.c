@@ -6,11 +6,14 @@
  */ 
 
 #include "uart.h"
+#include "string.h"
 #include <avr/interrupt.h>
 
 volatile static uint8_t rxBuffer[RXBUFFERSIZE] = {0};
 volatile static uint16_t rxCount = 0;
 volatile static uint8_t uartTxBusy = 1;
+static uint16_t desiredLength = 0;
+static UartCallback callback;
 
 ISR(USART_RX_vect)
 {
@@ -19,6 +22,16 @@ ISR(USART_RX_vect)
 	rxBuffer[rxWritePos] = UDR0;
 	rxCount++;
 	rxWritePos++;
+	
+	if(desiredLength > 0 && rxCount == desiredLength)
+	{
+		uint8_t message[desiredLength];
+		memcpy(message, rxBuffer, desiredLength);
+		callback(message, desiredLength);
+		rxWritePos = 0;
+		return;
+	}
+	
 	if(rxWritePos >= RXBUFFERSIZE)
 	{
 		rxWritePos = 0;
@@ -46,6 +59,12 @@ void UartInit(uint32_t baud, uint8_t highSpeed)
 	UBRR0L = (baud & 0x00FF);
 	
 	UCSR0B |= (1 << TXEN0) | (1 << RXEN0) | (1 << RXCIE0) | (1 << TXCIE0);	
+}
+
+void UartCallbackSet(UartCallback CallbackFunc, uint16_t DesiredLength)
+{
+	callback = CallbackFunc;
+	desiredLength = DesiredLength;
 }
 
 void UartByteSend(uint8_t byte)

@@ -18,6 +18,7 @@
 #define POWER_DOWN_DELAY              20
 #define STANDBYI_DELAY                2
 #define PRX_MODE_DELAY                100
+#define TX_DELAY					  85
 #define ADDRESS_WIDTH_DEFAULT         5               /*address width in bytes, for default value*/
 #define RF_CHANNEL_DEFAULT            32
 #define RF_DATARATE_DEFAULT           1000            /*250, 1000, 2000*/
@@ -185,6 +186,11 @@
 #define NOP_CMD             0XFF              /*might be used to read the status register*/
 #define ACTIVATE			0x50
 
+ISR(PCINT0_vect)
+{
+	// obs³uga dostania wiadomoœci
+}
+
 static void PinSet(uint8_t pin, uint8_t state)
 {
 	if(state == LOW)
@@ -271,14 +277,14 @@ static void PowerUp(Nrf24Radio* Radio)
 		_delay_us(5000);
 	}
 }
-
+/*
 static void PowerDown(Nrf24Radio* Radio)
 {
 	PinSet(Radio->cePin, LOW);
 	Radio->configReg &= ~(1<<PWR_UP);
 	Write(Radio, CONFIG_ADDRESS, &Radio->configReg, 1);
 }
-
+*/
 static void TxFlush(Nrf24Radio* Radio)
 {
 	WriteCommand(Radio, FLUSH_TX);
@@ -304,6 +310,11 @@ void Nrf24Init(Nrf24Radio* Radio)
 	Radio->dynamicPayloadsEnabled = 1;
 	Radio->csDelay = 5;
 	Radio->pipe0ReadingAddress[0] = 0;
+	
+	DDRB &= ~(1<<DDB0);
+	PORTB |= (1<<DDB0);
+	PCMSK0 |= (1<<DDB0);
+	PCICR |= (1<<PCIE0);
 }
 
 uint8_t Nrf24Begin(Nrf24Radio* Radio)
@@ -401,6 +412,22 @@ void Nrf24StartListening(Nrf24Radio* Radio)
 		WriteRegister(Radio, EN_RXADDR_ADDRESS, enrx);
 		Radio->isP0Rx = 0;
 	}
+}
+
+void Nrf24StopListening(Nrf24Radio* Radio)
+{
+	PinSet(Radio->cePin, LOW);
+	
+	_delay_us(TX_DELAY);
+	if(Radio->ackPayloadsEnabled)
+	{
+		TxFlush(Radio);
+	}
+	
+	Radio->configReg = Radio->configReg & ~(1<<PRIM_RX);
+	WriteRegister(Radio, CONFIG_ADDRESS, Radio->configReg);
+	
+	WriteRegister(Radio, EN_RXADDR_ADDRESS, ReadRegister(Radio, EN_RXADDR_ADDRESS )| (1<<ERX_P0));
 }
 
 static uint8_t GetStatus(Nrf24Radio* Radio)

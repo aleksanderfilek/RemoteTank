@@ -14,7 +14,6 @@
 #define TRANSMITTER                   0X00
 #define RECEIVER                      0X01
 
-
 typedef struct Nrf24Radio
 {
 	uint8_t cePin;
@@ -36,6 +35,7 @@ uint8_t Nrf24Begin(Nrf24Radio* Radio);
 void Nrf24OpenWritingPipe(Nrf24Radio* Radio, uint64_t Pipe);
 void Nrf24OpenReadingPipe(Nrf24Radio* Radio, uint64_t Pipe);
 void Nrf24StartListening(Nrf24Radio* Radio);
+void Nrf24StopListening(Nrf24Radio* Radio);
 uint8_t Nrf24Write(Nrf24Radio* Radio, const uint8_t* data, uint8_t length);
 void Nrf24Read(Nrf24Radio* Radio, uint8_t* data, uint8_t length);
 uint8_t Nrf24Available(Nrf24Radio* Radio);

@@ -46,7 +46,7 @@ uint8_t SpiSend(uint8_t data)
 	
 	return spiRxData;
 }
-
+/*
 void SpiTransfer(uint8_t* tx, uint8_t* rx, uint16_t length)
 {
 	SpiCSSet(PORTB2, 1);
@@ -58,7 +58,7 @@ void SpiTransfer(uint8_t* tx, uint8_t* rx, uint16_t length)
 	
 	SpiCSSet(PORTB2, 0);
 }
-
+*/
 void SpiCSSet(uint8_t pin, uint8_t mode)
 {
 	if(mode == 1)

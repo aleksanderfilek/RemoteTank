@@ -57,7 +57,6 @@ void MotorInit()
 	OCR0B = 5;
 	DDRD |= (1<<DDD6) | (1<<DDD5);
 
-
 	factor = 255;
 	nextFactor = factor;
 }

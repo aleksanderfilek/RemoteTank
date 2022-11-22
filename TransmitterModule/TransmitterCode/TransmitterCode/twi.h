@@ -28,7 +28,7 @@
 #define TWI_ERROR 0x38
 #define TWI_NONE 0xF8
 
-enum 
+enum
 {
 	TWI_OK,
 	TWI_ERROR_START,
