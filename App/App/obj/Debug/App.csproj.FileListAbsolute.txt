@@ -1,0 +1,16 @@
+B:\Projekty\RemoteTank\App\App\obj\Debug\App.csproj.AssemblyReference.cache
+B:\Projekty\RemoteTank\App\App\obj\Debug\App.csproj.SuggestedBindingRedirects.cache
+B:\Projekty\RemoteTank\App\App\obj\Debug\MainWindow.g.cs
+B:\Projekty\RemoteTank\App\App\obj\Debug\App.g.cs
+B:\Projekty\RemoteTank\App\App\obj\Debug\App_MarkupCompile.cache
+B:\Projekty\RemoteTank\App\App\obj\Debug\App_MarkupCompile.lref
+B:\Projekty\RemoteTank\App\App\bin\Debug\App.exe.config
+B:\Projekty\RemoteTank\App\App\bin\Debug\App.exe
+B:\Projekty\RemoteTank\App\App\bin\Debug\App.pdb
+B:\Projekty\RemoteTank\App\App\obj\Debug\MainWindow.baml
+B:\Projekty\RemoteTank\App\App\obj\Debug\App.g.resources
+B:\Projekty\RemoteTank\App\App\obj\Debug\App.Properties.Resources.resources
+B:\Projekty\RemoteTank\App\App\obj\Debug\App.csproj.GenerateResource.cache
+B:\Projekty\RemoteTank\App\App\obj\Debug\App.csproj.CoreCompileInputs.cache
+B:\Projekty\RemoteTank\App\App\obj\Debug\App.exe
+B:\Projekty\RemoteTank\App\App\obj\Debug\App.pdb
