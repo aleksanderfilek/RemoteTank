@@ -1178,7 +1178,7 @@
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 33877aa3-5be8-4906-b28a-c47c8e080931)
     (property "Reference" "U4" (id 0) (at 194.31 43.18 0))
-    (property "Value" "LM1117-3.3" (id 1) (at 194.31 45.72 0))
+    (property "Value" "LD33V" (id 1) (at 194.31 45.72 0))
     (property "Footprint" "Package_TO_SOT_SMD:TO-252-2" (id 2) (at 194.31 50.8 0)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -1394,7 +1394,7 @@
       (reference "U3") (unit 1) (value "CH340C") (footprint "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm")
     )
     (path "/33877aa3-5be8-4906-b28a-c47c8e080931"
-      (reference "U4") (unit 1) (value "LM1117-3.3") (footprint "Package_TO_SOT_SMD:TO-252-2")
+      (reference "U4") (unit 1) (value "LD33V") (footprint "Package_TO_SOT_SMD:TO-252-2")
     )
     (path "/9b2c3896-c54b-4cf2-8fa5-0036fca2d447"
       (reference "Y1") (unit 1) (value "16MHz") (footprint "Crystal:Crystal_HC49-U_Vertical")
