@@ -16,6 +16,7 @@
 #include "spi.h"
 #include "nrf24.h"
 #include "commands.h"
+#include "audio.h"
 
 const uint64_t pipe = 0xE8E8F0F0E1LL;
 Nrf24Radio* radio;
@@ -43,28 +44,33 @@ void CallbackUart(uint8_t* data, uint16_t length)
 
 int main(void)
 {		
-	radio = (Nrf24Radio*)malloc(sizeof(Nrf24Radio));
-	Nrf24Init(radio);
-	
+	//radio = (Nrf24Radio*)malloc(sizeof(Nrf24Radio));
+	//Nrf24Init(radio);
+	//
 	UartInit(9600, 0);
-	UartCallbackSet(CallbackUart, COMMAND_LENGTH);
-	
-	SpiMasterInit();
+	//UartCallbackSet(CallbackUart, COMMAND_LENGTH);
+	//
+	//SpiMasterInit();
 	sei();
-	
-	if(Nrf24Begin(radio) == 0)
-	{
-		UartByteSend(ERR_RADIO_NOT_STARTED); // jakies zbieranie errrorowy by sie przydalo
-		return 0;
-	}
-	
-	Nrf24OpenWritingPipe(radio, pipe);
+	//
+	//if(Nrf24Begin(radio) == 0)
+	//{
+		//UartByteSend(ERR_RADIO_NOT_STARTED); // jakies zbieranie errrorowy by sie przydalo
+		//return 0;
+	//}
+	//
+	//Nrf24OpenWritingPipe(radio, pipe);
+	AudioInit();
 	
     while (1) 
     {
-
+		if(UartCountRead() > 0)
+		{
+			char msg = UartRead();
+			AudioBeep(2);
+		}
     }
 	
-	free(radio);
+	//free(radio);
 }
 
