@@ -1,13 +1,15 @@
 /*
  * twi.h
  *
- * Created: 20.08.2022 16:15:54
- *  Author: filek
+ * Created: 2022-12-28 23:59:14
+ *  Author: Alek
  */ 
 
 
 #ifndef TWI_H_
 #define TWI_H_
+
+
 
 #include "config.h"
 
@@ -39,5 +41,7 @@ enum
 void TwiInit(uint32_t speed);
 uint8_t TwiRead(uint8_t addr, uint8_t reg, uint8_t* data, uint16_t length);
 uint8_t TwiWrite(uint8_t addr, uint8_t reg, uint8_t* data, uint16_t length);
+
+
 
 #endif /* TWI_H_ */

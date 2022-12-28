@@ -12,7 +12,7 @@
 void AudioInit()
 {
 	DDRC |= (1<<DDC4);
-	PORTC = 0;
+	PORTC &= ~(1<<DDC4);
 }
 
 void AudioBeep(int times)
@@ -21,7 +21,7 @@ void AudioBeep(int times)
 	{
 		PORTC |= (1<<DDC4);
 		_delay_ms(200);
-		PORTC = 0;
+		PORTC &= ~(1<<DDC4);
 		_delay_ms(100);
 	}
 }

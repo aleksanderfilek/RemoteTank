@@ -5,17 +5,8 @@
  * Author : filek
  */ 
 
-#include "config.h"
-
-#include <avr/io.h>
-#include <util/delay.h>
-#include <stdlib.h>
-
 #include "uart.h"
 #include "avr/interrupt.h"
-#include "spi.h"
-#include "nrf24.h"
-#include "commands.h"
 #include "audio.h"
 
 const uint64_t pipe = 0xE8E8F0F0E1LL;

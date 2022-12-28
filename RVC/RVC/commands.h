@@ -1,7 +1,7 @@
 /*
- * Commands.h
+ * commands.h
  *
- * Created: 2022-11-22 22:25:01
+ * Created: 2022-12-29 00:02:59
  *  Author: Alek
  */ 
 
@@ -9,15 +9,19 @@
 #ifndef COMMANDS_H_
 #define COMMANDS_H_
 
+
 #define COMMAND_LENGTH 32
+
+typedef enum CommandStatus
+{
+	CMDS_OK = 1,
+	CMDS_FAILED = 2
+} CommandStatus;
 
 typedef enum CommandType
 {
-	CMD_MOVE = 1,
-	CMD_STOP,
-	CMD_INFO_REQ,
-	CMD_INFO_RSP,
-	ERR_RADIO_NOT_STARTED
+	CMD_CONN = 1
 } CommandType;
+
 
 #endif /* COMMANDS_H_ */

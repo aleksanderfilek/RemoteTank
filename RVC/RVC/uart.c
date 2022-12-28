@@ -1,8 +1,8 @@
 /*
  * uart.c
  *
- * Created: 17.08.2022 22:23:49
- *  Author: filek
+ * Created: 2022-12-28 23:55:46
+ *  Author: Alek
  */ 
 
 #include "uart.h"
@@ -58,7 +58,7 @@ void UartInit(uint32_t baud, uint8_t highSpeed)
 	UBRR0H = (baud & 0xF00) >> 8;
 	UBRR0L = (baud & 0x00FF);
 	
-	UCSR0B |= (1 << TXEN0) | (1 << RXEN0) | (1 << RXCIE0) | (1 << TXCIE0);	
+	UCSR0B |= (1 << TXEN0) | (1 << RXEN0) | (1 << RXCIE0) | (1 << TXCIE0);
 }
 
 void UartCallbackSet(UartCallback CallbackFunc, uint16_t DesiredLength)
@@ -86,7 +86,7 @@ void UartStringSend(uint8_t* str)
 {
 	uint16_t i = 0;
 	
-	do 
+	do
 	{
 		UartByteSend(str[i]);
 		i++;

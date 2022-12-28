@@ -25,34 +25,37 @@ namespace App
     public partial class MainWindow : Window
     {
 
-        SerialPort _serialPort;
-
         public MainWindow()
         {
             InitializeComponent();
-
-            _serialPort = new SerialPort("COM7", 9600);
-            _serialPort.Open();
         }
 
         ~MainWindow()
         {
-            _serialPort.Close();
         }
 
         private void SendMsg(object sender, RoutedEventArgs e)
         {
-            _serialPort.Write("A");
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
 
-            if (e.Key == Key.W)
+            switch(e.Key)
             {
-                _serialPort.Write("A");
-
+                case Key.W:
+                    //_serialPort.Write("W");
+                    break;
+                case Key.S:
+                    //_serialPort.Write("S");
+                    break;
+                case Key.A:
+                    //_serialPort.Write("A");
+                    break;
+                case Key.D:
+                    //_serialPort.Write("D");
+                    break;
             }
         }
     }

@@ -1,15 +1,16 @@
 /*
  * nrf24.h
  *
- * Created: 07.11.2022 14:11:22
- *  Author: filek
+ * Created: 2022-12-29 00:01:23
+ *  Author: Alek
  */ 
 
 
 #ifndef NRF24_H_
 #define NRF24_H_
 
-#include <stdint.h>
+
+#include "config.h"
 
 #define TRANSMITTER                   0X00
 #define RECEIVER                      0X01

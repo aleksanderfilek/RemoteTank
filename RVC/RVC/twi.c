@@ -1,9 +1,10 @@
 /*
  * twi.c
  *
- * Created: 20.08.2022 16:15:42
- *  Author: filek
+ * Created: 2022-12-28 23:59:22
+ *  Author: Alek
  */ 
+
 
 #include "twi.h"
 #include <avr/interrupt.h>
@@ -28,7 +29,7 @@ static uint8_t TwiStart(void)
 			return TWI_ERROR_START;
 		}
 	}
-		
+	
 	return TWI_OK;
 }
 
@@ -56,7 +57,7 @@ static uint8_t TwiRestart(void)
 
 static uint8_t TwiAddrWriteAck(void)
 {
-	uint16_t i = 0;	
+	uint16_t i = 0;
 	
 	TWCR = (1 << TWINT) | (1 << TWEN) | (1 <<TWIE);
 	while(status != TWI_ADDR_ACK)
@@ -180,7 +181,7 @@ uint8_t TwiRead(uint8_t addr, uint8_t reg, uint8_t* data, uint16_t length)
 	}
 	
 	TWDR = (addr << 1) | 1;
-		
+	
 	err = TwiAddrReadAck();
 	if(err != TWI_OK)
 	{

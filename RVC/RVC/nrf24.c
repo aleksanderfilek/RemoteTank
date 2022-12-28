@@ -1,9 +1,11 @@
 /*
  * nrf24.c
  *
- * Created: 07.11.2022 14:11:12
- *  Author: filek
+ * Created: 2022-12-29 00:01:32
+ *  Author: Alek
  */ 
+
+
 #include "nrf24.h"
 #include "spi.h"
 #include "uart.h"
