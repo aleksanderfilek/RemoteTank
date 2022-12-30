@@ -29,6 +29,7 @@ ISR(USART_RX_vect)
 		memcpy(message, rxBuffer, desiredLength);
 		callback(message, desiredLength);
 		rxWritePos = 0;
+		rxCount= 0;
 		return;
 	}
 	
