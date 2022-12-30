@@ -25,17 +25,14 @@ namespace App
     public partial class MainWindow : Window
     {
 
+        CommunicationManager communicationManager;
+        CommandManager commandManager;
         public MainWindow()
         {
             InitializeComponent();
-        }
+            communicationManager = new CommunicationManager();
 
-        ~MainWindow()
-        {
-        }
-
-        private void SendMsg(object sender, RoutedEventArgs e)
-        {
+            PortsCB.ItemsSource = CommunicationManager.GetPorts();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -45,10 +42,14 @@ namespace App
             switch(e.Key)
             {
                 case Key.W:
-                    //_serialPort.Write("W");
+                    communicationManager.Send("w");
                     break;
                 case Key.S:
-                    //_serialPort.Write("S");
+                    Command command = new Command();
+                    command.Type = CommandType.Connection;
+                    command.Status = CommandStatus.Ask;
+
+                    communicationManager.Send(command.ToString());
                     break;
                 case Key.A:
                     //_serialPort.Write("A");
@@ -56,6 +57,27 @@ namespace App
                 case Key.D:
                     //_serialPort.Write("D");
                     break;
+            }
+        }
+
+        private void ConnectBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(PortsCB.SelectedItem == null)
+            {
+                return;
+            }
+
+            if (communicationManager.IsOpen)
+            {
+                communicationManager.Stop();
+            }
+
+            if (!communicationManager.Start((string)PortsCB.SelectedValue))
+            {
+                Console.WriteLine("Error");
+            }else
+            {
+                Console.WriteLine("Connected");
             }
         }
     }
