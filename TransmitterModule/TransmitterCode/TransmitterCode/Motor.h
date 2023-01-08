@@ -11,7 +11,15 @@
 
 #include "config.h"
 
+typedef enum MotorDirection
+{
+	MD_STOP = 0,
+	MD_FORWARD = 1,
+	MD_BACKWARD = 2
+}MotorDirection;
+
 void MotorInit();
-void MotorSetValue(uint8_t value);
+void MotorSpeedSet(uint8_t motorId, uint8_t value);
+void MotorDirectionSet(uint8_t motorId);
 
 #endif /* PWM_H_ */

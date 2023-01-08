@@ -61,7 +61,7 @@ namespace App {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.CodeDom.Compiler.GeneratedCodeAttribute("PresentationBuildTasks", "4.0.0.0")]
         public static void Main() {
-            App app = new App();
+            App.App app = new App.App();
             app.InitializeComponent();
             app.Run();
         }

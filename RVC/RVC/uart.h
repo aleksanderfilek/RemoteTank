@@ -15,7 +15,7 @@
 
 typedef void (*UartCallback)(uint8_t*, uint16_t);
 
-void UartInit(uint32_t baud, uint8_t highSpeed);
+void UartInit(uint32_t baud);
 void UartCallbackSet(UartCallback CallbackFunc, uint16_t DesiredLength);
 void UartByteSend(uint8_t byte);
 void UartArraySend(uint8_t* byteArray, uint16_t length);

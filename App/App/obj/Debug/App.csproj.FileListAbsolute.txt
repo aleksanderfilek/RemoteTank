@@ -1,5 +1,4 @@
 B:\Projekty\RemoteTank\App\App\obj\Debug\App.csproj.AssemblyReference.cache
-B:\Projekty\RemoteTank\App\App\obj\Debug\App.csproj.SuggestedBindingRedirects.cache
 B:\Projekty\RemoteTank\App\App\obj\Debug\MainWindow.g.cs
 B:\Projekty\RemoteTank\App\App\obj\Debug\App.g.cs
 B:\Projekty\RemoteTank\App\App\obj\Debug\App_MarkupCompile.cache

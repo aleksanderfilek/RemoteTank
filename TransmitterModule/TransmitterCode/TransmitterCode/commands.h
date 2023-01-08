@@ -15,14 +15,17 @@
 
 typedef enum CommandStatus
 {
-	CMDS_OK = 1,
+	CMDS_NONE = 0,
+	CMDS_SUCCESS = 1,
 	CMDS_FAILED = 2
 } CommandStatus;
 
 typedef enum CommandType
 {
 	CMD_NONE = 0,
-	CMD_CONNECT = 1
+	CMD_CONNECT = 1,
+	CMD_MOTORCONTROL = 2,
+	CMD_GETDATA = 3
 } CommandType;
 
 typedef void (*CommandFunc)(CommandType Type, CommandStatus Status, uint8_t* data);

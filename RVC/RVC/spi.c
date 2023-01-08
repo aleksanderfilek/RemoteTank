@@ -22,14 +22,12 @@ ISR(SPI_STC_vect)
 	if(SPSR & (1<<SPIF))
 	{
 		spiRxData = SPDR;
-		spiRxData = 0;
 		spiTxRxDone = 1;
+		return;
 	}
-	else
-	{
-		spiRxData = SPDR;
-		spiTxRxDone = 1;
-	}
+
+	spiRxData = SPDR;
+	spiTxRxDone = 255;
 }
 
 void SpiMasterInit(void)

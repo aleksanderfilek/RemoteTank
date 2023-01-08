@@ -9,8 +9,10 @@
 #include <avr/interrupt.h>
 #include <avr/io.h>
 
-volatile static int factor;
-volatile static int nextFactor;
+volatile static int factor[2];
+volatile static int nextFactor[2];
+void uint8_t direction[2];
+
 ISR (TIMER0_COMPB_vect)
 {
 	static int counter = 0;
@@ -18,12 +20,12 @@ ISR (TIMER0_COMPB_vect)
 
 	uint8_t high = PORTD & (1<<DDD5);
 	
-	uint8_t realFactor = (high) ? factor : 256 -  factor;
+	uint8_t realFactor = (high) ? factor[1] : 256 -  factor[1];
 	if(counter == realFactor)
 	{
-		if(factor != nextFactor)
+		if(factor[1] != nextFactor[1])
 		{
-			factor = nextFactor;
+			factor[1] = nextFactor[1];
 		}
 		PORTD ^= (1<<DDD5);
 		counter = 0;
@@ -36,12 +38,12 @@ ISR (TIMER0_COMPA_vect)
 
 	uint8_t high = PORTD & (1<<DDD6);
 	
-	uint8_t realFactor = (high) ? factor : 256 -  factor;
+	uint8_t realFactor = (high) ? factor[0] : 256 -  factor[0];
 	if(counter == realFactor)
 	{
-		if(factor != nextFactor)
+		if(factor[0] != nextFactor[0])
 		{
-			factor = nextFactor;
+			factor[0] = nextFactor[0];
 		}
 		PORTD ^= (1<<DDD6);
 		counter = 0;
@@ -55,13 +57,37 @@ void MotorInit()
 	TIMSK0 = (1<<OCIE0A);
 	OCR0A = 5;
 	OCR0B = 5;
-	DDRD |= (1<<DDD6) | (1<<DDD5);
+	DDRD |= (1<<DDD6) | (1<<DDD5) | (1<<DDD3) | (1<<DDD2) | (1<<DDD1) | (1<<DDD0);
 
-	factor = 255;
-	nextFactor = factor;
+	factor[0] = factor[1] = 0;
+	MotorSpeedSet(0, 0);
+	MotorSpeedSet(1, 0);
+	MotorDirectionSet(0, MD_STOP);
+	MotorDirectionSet(1, MD_STOP);
 }
 
-void MotorSetValue(uint8_t value)
+void MotorSpeedSet(uint8_t motorId, uint8_t value)
 {
-	nextFactor = value;
+	nextFactor[motorId] = value;
+}
+
+void MotorDirectionSet(uint8_t motorId, MotorDirection direction)
+{
+	uint8_t pin0 = DDD0 + 2*motorId;
+	uint8_t pin1 = pin0 + 1;
+	switch(direction)
+	{
+		case MD_STOP:
+			PORTD &= ~(1<<pin0);
+			PORTD &= ~(1<<pin1);
+			break;
+		case MD_FORWARD:
+			PORTD |= (1<<pin0);
+			PORTD &= ~(1<<pin1);
+			break;
+		case MD_BACKWARD:
+			PORTD &= ~(1<<pin0);
+			PORTD |= (1<<pin1);
+			break;
+	}
 }

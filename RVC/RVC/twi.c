@@ -16,11 +16,9 @@ ISR(TWI_vect)
 	status = (TWSR & TWI_NONE);
 }
 
-static uint8_t TwiStart(void)
+static uint8_t TwiWait(uint8_t desiredStatus)
 {
 	uint16_t i = 0;
-	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN) | (1 <<TWIE);
-	
 	while(status != TWI_START)
 	{
 		i++;
@@ -31,6 +29,12 @@ static uint8_t TwiStart(void)
 	}
 	
 	return TWI_OK;
+}
+
+static uint8_t TwiStart(void)
+{
+	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN) | (1 <<TWIE);
+	return TwiWait(TWI_START);
 }
 
 static void TwiStop(void)

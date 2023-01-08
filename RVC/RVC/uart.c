@@ -44,16 +44,9 @@ ISR(USART_TX_vect)
 	uartTxBusy = 1;
 }
 
-void UartInit(uint32_t baud, uint8_t highSpeed)
+void UartInit(uint32_t baud)
 {
 	uint8_t speed = 16;
-	
-	if(highSpeed != 0)
-	{
-		speed = 8;
-		UCSR0A |= 1 << U2X0;
-	}
-	
 	baud = (F_CPU/(speed*baud)) - 1;
 	
 	UBRR0H = (baud & 0xF00) >> 8;

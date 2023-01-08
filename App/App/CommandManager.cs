@@ -47,7 +47,7 @@ namespace App
         }
     }
 
-    internal class CommandManagerS
+    internal class CommandManager
     {
         public string SendCommand()
         {

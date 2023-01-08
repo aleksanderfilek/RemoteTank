@@ -47,6 +47,7 @@ namespace App
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string result = serialPort.ReadLine().Remove(0, 1);
+            Console.WriteLine(result);
             OnReceived?.Invoke(result);
         }
 

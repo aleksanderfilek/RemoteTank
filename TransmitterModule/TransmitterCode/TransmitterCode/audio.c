@@ -15,13 +15,14 @@ void AudioInit()
 	PORTC &= ~(1<<DDC4);
 }
 
-void AudioBeep(int times)
+void AudioBeep(int number)
 {
-	for(int i = 0; i < times; i++)
+	for(int i = 0; i < number; i++)
 	{
 		PORTC |= (1<<DDC4);
 		_delay_ms(200);
 		PORTC &= ~(1<<DDC4);
-		_delay_ms(100);
+		if(i < number - 1)
+			_delay_ms(100);
 	}
 }

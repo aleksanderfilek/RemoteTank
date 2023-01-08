@@ -31,6 +31,8 @@ namespace App
         {
             InitializeComponent();
             communicationManager = new CommunicationManager();
+            commandManager = new CommandManager();
+            communicationManager.OnReceived += commandManager.ParseCommand;
 
             PortsCB.ItemsSource = CommunicationManager.GetPorts();
         }

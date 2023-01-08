@@ -46,7 +46,72 @@ void CallbackUart(uint8_t* data, uint16_t length)
 
 void OnConnect(CommandType Type, CommandStatus Status, uint8_t* data)
 {
-	AudioBeep(2);
+	AudioBeep(1);
+	if(Nrf24Write(radioRef, data, COMMAND_LENGTH) == 0)
+	{
+		data[1] = CMDS_FAILED;
+		UartArraySend(data, COMMAND_LENGTH);
+		return;
+	}
+	data[1] = CMDS_SUCCESS;
+	UartArraySend(data, COMMAND_LENGTH);
+	AudioBeep(1);
+}
+
+void OnMotorControl(CommandType Type, CommandStatus Status, uint8_t* data)
+{
+	if(Nrf24Write(radioRef, data, COMMAND_LENGTH) == 0)
+	{
+		data[1] = CMDS_FAILED;
+		UartArraySend(data, COMMAND_LENGTH);
+		return;
+	}
+	data[1] = CMDS_SUCCESS;
+	UartArraySend(data, COMMAND_LENGTH);
+}
+
+void OnGetData(CommandType Type, CommandStatus Status, uint8_t* data)
+{
+	if(Nrf24Write(radioRef, data, COMMAND_LENGTH) == 0)
+	{
+		data[1] = CMDS_FAILED;
+		UartArraySend(data, COMMAND_LENGTH);
+		return;
+	}
+	
+	Nrf24OpenReadingPipe(radioRef, pipe);
+	Nrf24StartListening(radioRef);
+	
+	uint16_t timeoutCounter = 0;
+	while(Nrf24Available(radioRef) == 0)
+	{
+		timeoutCounter++;
+		if(timeoutCounter >= 1600)
+		{
+			data[1] = CMDS_FAILED;
+			Nrf24StopListening(radioRef);
+			Nrf24OpenWritingPipe(radioRef, pipe);
+			UartArraySend(data, COMMAND_LENGTH);
+			return;
+		}
+	}
+	uint8_t receivedMsg[COMMAND_LENGTH];
+	Nrf24Read(radioRef, receivedMsg, COMMAND_LENGTH);
+	
+	Nrf24StopListening(radioRef);
+	Nrf24OpenWritingPipe(radioRef, pipe);
+	
+	UartArraySend(receivedMsg, COMMAND_LENGTH);
+}
+
+void OnMotorControl(CommandType Type, CommandStatus Status, uint8_t* data)
+{
+	
+}
+
+void OnGetData(CommandType Type, CommandStatus Status, uint8_t* data)
+{
+	
 }
 
 int main(void)
@@ -57,9 +122,12 @@ int main(void)
 	
 	CommandManager commandManager;
 	commandManagerRef = &commandManager;
+	
 	CommandInit(commandManagerRef);
 	CommandRegisterFunc(commandManagerRef, CMD_CONNECT, OnConnect);
-	
+	CommandRegisterFunc(commandManagerRef, CMD_MOTORCONTROL, OnMotorControl);
+	CommandRegisterFunc(commandManagerRef, CMD_GETDATA, OnGetData);
+
 	UartInit(9600, 0);
 	UartCallbackSet(CallbackUart, COMMAND_LENGTH);
 	//
