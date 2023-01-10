@@ -1,0 +1,55 @@
+﻿<Window x:Class="App.ControlWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:App"
+        mc:Ignorable="d"
+        Title="Remote vechicle control panel" Height="720" Width="1280">
+    <Grid>
+        <StackPanel>
+            <Canvas Height="60">
+                <Rectangle Height="50" Stroke="Black" Width="1280" Fill="#FFC3C3C3" Margin="0,5,0,5"/>
+                <StackPanel Height="60" Width="1280" Orientation="Horizontal">
+                    <ComboBox x:Name="PortsCb" Width="160" Margin="20,10,0,10" SelectedIndex="0" FontSize="20">
+                    </ComboBox>
+                    <Button x:Name="ConnectBtn" Content="Connect" Margin="20,10,0,10" HorizontalAlignment="Left" Width="100" FontSize="20" Click="ConnectBtn_Click"/>
+                    <TextBlock x:Name="ConnectTxt" TextWrapping="Wrap" Text="Disconnected" Canvas.Top="25" Foreground="Red" FontSize="20" Margin="20,15,0,0"/>
+                </StackPanel>
+            </Canvas>
+            <Canvas Height="585">
+                <Rectangle Width="1280" Height="580" Canvas.Left="0" Stroke="Black" Canvas.Top="0" Fill="#FFC3C3C3" Margin="0,0,0,5"/>
+                <StackPanel Height="585" Width="1280" Orientation="Horizontal">
+                    <StackPanel Width="640">
+                        <Button x:Name="ForwardBtn" Content="Forward" Width="100" Height="100" Margin="0,150,0,0" FontSize="20"/>
+                        <StackPanel Width="640" Orientation="Horizontal" Margin="150,20,0,0">
+                            <Button x:Name="LeftBtn" Content="Left" Width="100" Height="100" FontSize="20"/>
+                            <Button x:Name="BackBtn" Content="Backward" Width="100" Height="100" Margin="20,0,20,0" FontSize="20"/>
+                            <Button x:Name="RightBtn" Content="Right" Width="100" Height="100" FontSize="20"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Width="640">
+                        <Border BorderThickness="4,4,4,4">
+                            <StackPanel Orientation="Horizontal" Margin="150,150,0,0">
+                                <StackPanel>
+                                    <TextBlock FontSize="20" Text="Temperature [C]" />
+                                    <TextBlock FontSize="20" Text="Orientation" />
+                                </StackPanel>
+                                <StackPanel Margin="42,0,0,0">
+                                    <TextBlock x:Name="TemperatureTxt" FontSize="20" ><Run Language="pl-pl" Text="21.57"/></TextBlock>
+                                    <TextBlock x:Name="OrientationTxt" FontSize="20" ><Run Text="X: "/><Run Text="33"/><Run Text="."/><Run Text="14"/><Run Text=", Y:"/><Run Language="pl-pl" Text="-15.92"/><Run Text=", Z:"/><Run Text=" 70.21"/></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </Canvas>
+            <Canvas Height="60">
+                <Rectangle  Margin="0,0,0,5" Height="60" Stroke="Black" Width="1280" Fill="#FFC3C3C3" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <Border BorderBrush="Black" BorderThickness="4" Height="60" Width="1280">
+                    <TextBlock x:Name="ErrorTxt" TextWrapping="Wrap" Text="No errors" FontSize="20" Margin="20,0,0,0" Foreground="Red"/>
+                </Border>
+            </Canvas>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -11,6 +11,7 @@ namespace App
 {
     internal class CommunicationManager
     {
+        public static CommunicationManager instance;
         private static SerialPort serialPort = null;
         private Thread readThread = null;
 
@@ -28,6 +29,11 @@ namespace App
 
         public event Received OnReceived;
 
+        public CommunicationManager()
+        {
+            instance = this;
+        }
+
         public bool Start(string portName)
         {
             try
@@ -40,14 +46,17 @@ namespace App
             {
                 return false;
             }
+            catch(UnauthorizedAccessException)
+            { 
+                return false;
+            }
 
             return true;
         }
 
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            string result = serialPort.ReadLine().Remove(0, 1);
-            Console.WriteLine(result);
+            string result = serialPort.ReadLine();
             OnReceived?.Invoke(result);
         }
 
