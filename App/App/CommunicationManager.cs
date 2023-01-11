@@ -44,10 +44,12 @@ namespace App
             }
             catch(ObjectDisposedException)
             {
+                Stop();
                 return false;
             }
             catch(UnauthorizedAccessException)
-            { 
+            {
+                Stop();
                 return false;
             }
 
@@ -57,6 +59,10 @@ namespace App
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string result = serialPort.ReadLine();
+            if (result.Length < 31)
+            {
+                return;
+            }
             OnReceived?.Invoke(result);
         }
 

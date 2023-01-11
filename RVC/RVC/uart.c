@@ -6,7 +6,7 @@
  */ 
 
 #include "uart.h"
-#include "string.h"
+#include <string.h>
 #include <avr/interrupt.h>
 
 volatile static uint8_t rxBuffer[RXBUFFERSIZE] = {0};

@@ -47,5 +47,5 @@ void CommandInit(CommandManager* Manager);
 void CommandDestroy(CommandManager* Manager);
 void CommandRegisterFunc(CommandManager* Manager, CommandType Type, CommandFunc Func);
 void CommandProcess(CommandManager* Manager, uint8_t* data, uint16_t length);
-
+uint8_t* CommandCreate(CommandType Type, CommandStatus Status, uint8_t* data, uint16_t length);
 #endif /* COMMANDS_H_ */

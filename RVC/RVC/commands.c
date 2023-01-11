@@ -42,3 +42,18 @@ void CommandProcess(CommandManager* Manager, uint8_t* data, uint16_t length)
 		}
 	}
 }
+
+uint8_t* CommandCreate(CommandType Type, CommandStatus Status, uint8_t* data, uint16_t length)
+{
+	uint8_t* cmd = (uint8_t*)malloc(sizeof(uint8_t) * 32);
+	
+	cmd[0] = (uint8_t)Type;
+	cmd[1] = (uint8_t)Status;
+	for(int i = 0; i< 29; i++)
+	{
+		cmd[2 + i] = data[0];
+	}
+	cmd[31] = '\n';
+	return cmd;
+	
+}

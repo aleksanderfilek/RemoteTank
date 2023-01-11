@@ -43,7 +43,7 @@ namespace App
             Status = (CommandStatus)command[1];
             for (int i = 0; i < 29; i++)
             {
-                Data[i] = (byte)command[2 + i];
+                Data[i] = (byte)command[2+i];
             }
         }
 
@@ -104,6 +104,7 @@ namespace App
 
             responseDictionary = new Dictionary<CommandType, Received>();
             responseDictionary.Add(CommandType.Connection, ConnectionResponse);
+            responseDictionary.Add(CommandType.MotorControl, MotorControlResponse);
             responseDictionary.Add(CommandType.GetData, GetDataResponse);
 
             responseTimer = new Timer(responseTimeout);
@@ -208,13 +209,23 @@ namespace App
 
             return true;
         }
+
+        private void MotorControlResponse(Command command)
+        {
+            if (command.Status == CommandStatus.Success)
+                Console.WriteLine("Motor success");
+            else
+                Console.WriteLine("Motor failed");
+        }
+
+
         private void GetDataResponse(Command command)
         {
+            Console.WriteLine(command.ToString());
             float temperature = BitConverter.ToSingle(command.Data, 0);
             float angleX = BitConverter.ToSingle(command.Data, 4);
             float angleY = BitConverter.ToSingle(command.Data, 8);
             float angleZ = BitConverter.ToSingle(command.Data, 12);
-
             App.SetTelemetry(temperature, angleX, angleY, angleZ);
         }
 

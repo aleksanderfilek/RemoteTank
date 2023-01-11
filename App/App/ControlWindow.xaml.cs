@@ -28,6 +28,7 @@ namespace App
             }
         }
 
+        private int[] previousKeyboardState;
         private int[] keyboardState;
         private Button[] controlButtons;
 
@@ -42,9 +43,11 @@ namespace App
 
             ChangeConnectButtonState(false);
 
+            previousKeyboardState = new int[4];
             keyboardState = new int[4];
             for (int i = 0; i < 4; i++)
             {
+                previousKeyboardState[i] = 0;
                 keyboardState[i] = 0;
             }
             controlButtons = new Button[4]
@@ -64,7 +67,20 @@ namespace App
 
         private void MotorTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            App.ControMotors(keyboardState);
+            for (int i = 0; i < 4; i++)
+            {
+                if(previousKeyboardState[i] != keyboardState[i])
+                {
+                    for (int j = 0; j < 4; i++)
+                    {
+                        previousKeyboardState[j] = keyboardState[j];
+                    }
+                    App.ControMotors(keyboardState);
+                    return;
+                }
+            }
+
+            return;
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
